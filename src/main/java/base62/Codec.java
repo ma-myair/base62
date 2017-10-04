@@ -2,8 +2,6 @@ package base62;
 
 import java.math.BigInteger;
 
-import javax.xml.bind.DatatypeConverter;
-
 /**
  * Codec for Base62 encoding / decoding. Base62 is alphabet containing only letters and numbers ([A-Za-z0-9]) and no special characters.
  */
@@ -13,33 +11,6 @@ public class Codec {
     private static final BigInteger BYTE_BASE = new BigInteger("256");
 
     private static final String INDEX = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    /**
-     * Transforms hexadecimal input to byte array and encodes result to Base62 string
-     *
-     * @param source hexadecimal string (max 64 symbols)
-     * @return Base62 string (max 43 symbols)
-     */
-    public static String encode(String source) {
-        if (source.length() > 64) {
-            throw new IllegalArgumentException("Input shall not be longer than 64 characters, is " + source.length());
-        }
-        return toBase62(DatatypeConverter.parseHexBinary(source));
-    }
-
-    /**
-     * Decodes Base62 string to byte array and converts that array to hexadecimal string
-     *
-     * @param base62 base62 string (max 44 symbols)
-     * @return hexadecimal string (64 symbols)
-     */
-    public static String decode(String base62) {
-        if (base62.length() > 43) {
-            throw new IllegalArgumentException("Input shall not be longer than 43 characters, is " + base62.length());
-        }
-        return DatatypeConverter.printHexBinary(toByteArray(base62));
-    }
-
 
     /**
      * Encodes byte array to base62 string
